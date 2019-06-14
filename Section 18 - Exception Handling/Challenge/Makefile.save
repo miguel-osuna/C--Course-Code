@@ -1,0 +1,24 @@
+all: main
+
+main: main.o account.o savings_accout.o trust_accout.o check_accont.o
+	g++ main.o account.o savings_account.o trust_account.o check_account.o -o main
+
+main.o: main.cpp
+	g++ -c main.cpp
+
+account.o: account.cpp
+	g++ -c account.cpp
+
+savings_account: savings_account.cpp
+	g++ -c savings_account.cppp
+
+trust_account: trust_account.cpp
+	g++ -c trust_account.cpp
+
+check_acccount: check_account.cpp
+	g++ -c check_account.cpp
+
+
+
+clean:
+	rm -rf *o main

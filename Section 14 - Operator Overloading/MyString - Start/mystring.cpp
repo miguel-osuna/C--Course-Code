@@ -1,0 +1,75 @@
+#include <cstring>
+#include <iostream>
+#include "mystring.h"
+
+/* For calls like: MyString a;
+We dynamically allocate memory for
+the pointer, with the size of char[1]
+
+The null terminator is used to avoid 
+checking for it laater */
+MyString::MyString()
+: str{nullptr} 
+{ 
+	str = new char[1];
+	*str = '\0';
+}
+
+/* For calls like: MyString a {"Text"}; 
+In this case, we take the pointer of the C-string
+and asign it to a.str
+
+The null terminator is automatically added */
+MyString::MyString(const char *s)
+: str{nullptr} 
+{ 	// Checks in case for a nullptr
+	if(s == nullptr)
+	{
+		str = new char[1];
+		*str = '\0';
+	}
+		
+	else 
+	{
+		str = new char[std::strlen(s) + 1]; // TWe add another character space for the null terminator
+		std::strcpy(str, s); // It automatically copies the null terminator to str c-style string ('\0'), one character
+							 // by one, that is why we don't derreference the pointer
+	}
+}
+
+/* For calls like: MyString b {a};
+
+In this case, we make a copy of the content
+source.str is pointing to */
+MyString::MyString(const MyString &source)
+:str{nullptr}
+{
+	str = new char[std::strlen(source.str) + 1];
+	std::strcpy(str, source.str);
+}
+
+MyString::~MyString()
+{
+	delete [] str;
+}
+
+void MyString::display() const
+{
+	std::cout << str << ":" << get_length() << std::endl;
+}
+
+int MyString::get_length() const
+{
+	return std::strlen(str);
+}
+
+/*The first 'const' means that the return value is a Read-Only value, and
+if the user tries to change it after it's been returned, it will throw an error.
+
+The second 'const' guarantees that the function will not modify any object attribute*/
+const char *MyString::get_str() const
+{
+	return str;
+}
+
+ 
