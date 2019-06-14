@@ -1,4 +1,4 @@
-# CPP_Course-Code
+# CPP-Course-Code
 This repository contains exercises to learn and practice topics of the programming C++ language:
 
 - Variables and Constants
